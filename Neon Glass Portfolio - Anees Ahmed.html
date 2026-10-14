@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anees Ahmed | Restaurant Training Manager & Hospitality Specialist</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome for crisp hospitality & UI icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            mono: ['Space Grotesk', 'monospace'],
+          },
+          colors: {
+            neonCyan: '#00f5ff',
+            neonPink: '#ff007f',
+            neonPurple: '#a855f7',
+            neonGreen: '#00ffa3',
+            neonAmber: '#ffd200',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* CSS Variables for Dynamic Neon Theme Engine */
+    :root {
+      --primary-neon: #00f5ff;
+      --secondary-neon: #ff007f;
+      --accent-glow: rgba(0, 245, 255, 0.45);
+      --glass-bg: rgba(13, 17, 28, 0.65);
+      --glass-border: rgba(0, 245, 255, 0.22);
+      --card-bg: rgba(18, 24, 38, 0.55);
+      --neon-shadow: 0 0 25px rgba(0, 245, 255, 0.35);
+    }
+
+    body {
+      background-color: #060913;
+      color: #e2e8f0;
+      overflow-x: hidden;
+      font-family: 'Outfit', sans-serif;
+      selection-background-color: var(--primary-neon);
+      selection-color: #060913;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #060913;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, var(--primary-neon), var(--secondary-neon));
+      border-radius: 9999px;
+    }
+
+    /* Canvas styling */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: all;
+    }
+
+    /* Modern Glassmorphism Utilities */
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 16px rgba(255, 255, 255, 0.02);
+    }
+
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .glass-card:hover {
+      border-color: var(--primary-neon);
+      box-shadow: 0 10px 30px -10px var(--accent-glow), inset 0 0 15px rgba(255, 255, 255, 0.05);
+      transform: translateY(-4px);
+    }
+
+    /* Neon Text & Border Accents */
+    .neon-text-primary {
+      color: var(--primary-neon);
+      text-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .neon-text-secondary {
+      color: var(--secondary-neon);
+      text-shadow: 0 0 12px rgba(255, 0, 127, 0.4);
+    }
+
+    .neon-gradient-text {
+      background: linear-gradient(135deg, var(--primary-neon), #ffffff, var(--secondary-neon));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .neon-btn {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+      border: 1px solid var(--primary-neon);
+      color: #fff;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .neon-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: all 0.5s ease;
+    }
+
+    .neon-btn:hover::before {
+      left: 100%;
+    }
+
+    .neon-btn:hover {
+      background: var(--primary-neon);
+      color: #060913;
+      box-shadow: 0 0 25px var(--primary-neon);
+    }
+
+    /* Slider styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.1);
+      height: 5px;
+      border-radius: 5px;
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--primary-neon);
+      box-shadow: 0 0 10px var(--primary-neon);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+
+    /* Animations */
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 15px var(--accent-glow); }
+      50% { box-shadow: 0 0 35px var(--accent-glow), 0 0 10px var(--secondary-neon); }
+    }
+    .animate-pulse-glow {
+      animation: pulseGlow 3s infinite ease-in-out;
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-float {
+      animation: floatSlow 6s ease-in-out infinite;
+    }
+
+    /* Responsive Grid fixes */
+    .aura-backdrop {
+      background: radial-gradient(circle at 50% 10%, rgba(0, 245, 255, 0.08) 0%, transparent 65%),
+                  radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.06) 0%, transparent 50%);
+    }
+
+    /* Modal transition */
+    .modal-active {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: scale(1) !important;
+    }
+  </style>
+</head>
+<body class="aura-backdrop min-h-screen relative antialiased text-slate-100">
+
+  <!-- Interactive HTML5 Particle Canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Content Container (above canvas) -->
+  <div class="relative z-10 flex flex-col min-h-screen pointer-events-none">
+    
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-40 w-full px-4 sm:px-8 py-3.5 pointer-events-auto">
+      <nav class="max-w-7xl mx-auto glass-panel rounded-2xl px-5 py-3 flex items-center justify-between border border-white/10 transition-all duration-300">
+        <!-- Logo / Monogram -->
+        <a href="#hero" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-pink-500 p-[2px] shadow-lg group-hover:rotate-6 transition-transform">
+            <div class="w-full h-full bg-[#090d16] rounded-[10px] flex items-center justify-center font-mono font-bold text-lg text-white">
+              AQ
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-bold tracking-wider text-base text-white group-hover:text-cyan-300 transition-colors">
+              ANEES AHMED
+            </span>
+            <span class="text-[10px] uppercase tracking-widest text-cyan-400 font-mono -mt-1">
+              Hospitality Lead • Pizza Max
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
+          <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+          <a href="#experience" class="hover:text-cyan-400 transition-colors">Trajectory</a>
+          <a href="#skills" class="hover:text-cyan-400 transition-colors">Core Skills</a>
+          <a href="#education" class="hover:text-cyan-400 transition-colors">Honors & Hifz</a>
+          <a href="#gallery" class="hover:text-cyan-400 transition-colors">Equestrian Art</a>
+          <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+        </div>
+
+        <!-- Right Quick Actions -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <!-- Toggle Canvas Aura Panel Button -->
+          <button id="btn-toggle-panel" title="Aura Particle Controls" class="p-2 sm:px-3 sm:py-2 rounded-xl glass-panel text-cyan-400 hover:text-white hover:border-cyan-400 text-xs sm:text-sm font-mono flex items-center gap-2 transition-all">
+            <i class="fa-solid fa-sliders"></i>
+            <span class="hidden sm:inline">Aura Controls</span>
+          </button>
+
+          <!-- Audio FX Synth Toggle -->
+          <button id="btn-audio-toggle" title="Toggle Interactive Audio Synth" class="p-2 w-9 h-9 rounded-xl glass-panel text-slate-400 hover:text-cyan-400 flex items-center justify-center transition-colors">
+            <i class="fa-solid fa-volume-high" id="audio-icon"></i>
+          </button>
+
+          <!-- WhatsApp Direct CTA -->
+          <a href="https://wa.me/923323250646?text=Hi%20Anees,%20I%20reviewed%20your%20Hospitality%20Portfolio%20and%20would%20like%20to%20connect!" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/20 text-xs font-semibold tracking-wide transition-all">
+            <i class="fa-brands fa-whatsapp text-sm"></i>
+            <span>Chat on WhatsApp</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-8 py-8 w-full pointer-events-auto">
+
+      <!-- HERO SECTION -->
+      <section id="hero" class="pt-6 pb-16 lg:pt-12 lg:pb-24 flex flex-col-reverse lg:flex-row items-center gap-12">
+        <div class="flex-1 space-y-6 text-center lg:text-left">
+          
+          <!-- Badges Pill -->
+          <div class="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2">
+            <span class="px-3.5 py-1 rounded-full text-xs font-mono font-medium glass-panel border-cyan-400/40 text-cyan-300 flex items-center gap-2 animate-pulse-glow">
+              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+              Open for High-Impact Hospitality Roles
+            </span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono glass-panel border-purple-500/30 text-purple-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-star text-amber-400 text-[10px]"></i>
+              Hafiz-e-Quran
+            </span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono glass-panel border-emerald-500/30 text-emerald-300">
+              <i class="fa-solid fa-location-dot mr-1"></i> Karachi, PK
+            </span>
+          </div>
+
+          <!-- Hero Main Title -->
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1]">
+            Hello, I'm <br class="hidden sm:inline">
+            <span class="neon-gradient-text">Anees Ahmed</span>
+          </h1>
+
+          <!-- Role Description -->
+          <p class="text-lg sm:text-xl text-slate-300 font-light max-w-2xl leading-relaxed">
+            <strong class="font-semibold text-white">Restaurant Training Manager & Senior Server</strong> with 
+            over <span class="neon-text-primary font-semibold">4 years of operational excellence</span> at 
+            <span class="text-white font-medium underline decoration-cyan-400/50 underline-offset-4">Pizza Max</span>. 
+            Progressed from Bus Boy to Manager through dedication, high-volume floor leadership, POS expertise, and customer devotion.
+          </p>
+
+          <!-- Core Stat Highlights -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+            <div class="glass-card p-3 rounded-xl text-center">
+              <div class="text-2xl font-mono font-bold text-cyan-400">4+</div>
+              <div class="text-[11px] text-slate-400 uppercase tracking-wider">Years Experience</div>
+            </div>
+            <div class="glass-card p-3 rounded-xl text-center">
+              <div class="text-2xl font-mono font-bold text-pink-400">100%</div>
+              <div class="text-[11px] text-slate-400 uppercase tracking-wider">Hifz Discipline</div>
+            </div>
+            <div class="glass-card p-3 rounded-xl text-center">
+              <div class="text-2xl font-mono font-bold text-amber-400">A-One</div>
+              <div class="text-[11px] text-slate-400 uppercase tracking-wider">Matriculation</div>
+            </div>
+            <div class="glass-card p-3 rounded-xl text-center">
+              <div class="text-2xl font-mono font-bold text-emerald-400">3x</div>
+              <div class="text-[11px] text-slate-400 uppercase tracking-wider">Rank Promotions</div>
+            </div>
+          </div>
+
+          <!-- Hero Action Buttons -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-3">
+            <a href="#experience" class="neon-btn px-6 py-3.5 rounded-xl font-medium tracking-wide flex items-center gap-2 shadow-lg">
+              <span>Explore Career Path</span>
+              <i class="fa-solid fa-arrow-down text-xs"></i>
+            </a>
+
+            <button id="btn-open-resume" class="px-6 py-3.5 rounded-xl glass-panel text-white hover:text-cyan-300 hover:border-cyan-400 transition-all font-medium flex items-center gap-2">
+              <i class="fa-regular fa-file-lines text-cyan-400"></i>
+              <span>View Full CV</span>
+            </button>
+
+            <a href="tel:+923323250646" class="px-4 py-3.5 rounded-xl glass-panel text-slate-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all text-sm flex items-center gap-2">
+              <i class="fa-solid fa-phone text-emerald-400"></i>
+              <span>+92 332 3250646</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Hero Graphic Showcase (Artistic Rider & Avatar Card) -->
+        <div class="w-full max-w-md lg:max-w-lg relative animate-float">
+          <!-- Background Glow Halo -->
+          <div class="absolute -inset-2 bg-gradient-to-r from-cyan-500/30 to-pink-500/30 rounded-3xl blur-2xl opacity-75"></div>
+
+          <div class="relative glass-panel rounded-3xl p-5 border border-white/20 shadow-2xl overflow-hidden group">
+            
+            <!-- Graphic Canvas Art Header (Beach Equestrian Art Tribute) -->
+            <div class="relative h-72 sm:h-80 w-full rounded-2xl overflow-hidden bg-slate-900 border border-white/10 flex items-center justify-center">
+              
+              <!-- SVG Illustration capturing the rider artwork: Anees riding a white horse at the seaside -->
+              <svg viewBox="0 0 400 480" class="w-full h-full object-cover select-none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#f5e6d3"/>
+                    <stop offset="60%" stop-color="#e9ddcd"/>
+                    <stop offset="100%" stop-color="#b6d5e1"/>
+                  </linearGradient>
+                  <linearGradient id="seaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#7daebd"/>
+                    <stop offset="50%" stop-color="#93c3cf"/>
+                    <stop offset="100%" stop-color="#729ea8"/>
+                  </linearGradient>
+                  <linearGradient id="horseMane" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#fdf4e3"/>
+                    <stop offset="100%" stop-color="#e6dbc5"/>
+                  </linearGradient>
+                  <filter id="neonShadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#00f5ff" flood-opacity="0.3"/>
+                  </filter>
+                </defs>
+
+                <!-- Sky & Sea Backdrop -->
+                <rect width="400" height="480" fill="url(#skyGrad)"/>
+                <rect y="210" width="400" height="70" fill="url(#seaGrad)" opacity="0.85"/>
+                <line x1="0" y1="210" x2="400" y2="210" stroke="#688f9a" stroke-width="2"/>
+                <line x1="0" y1="270" x2="400" y2="270" stroke="#f0ede6" stroke-width="4" opacity="0.6"/>
+
+                <!-- The White Horse (Noble Steed) -->
+                <g id="horse-group">
+                  <!-- Horse Neck & Shoulder -->
+                  <path d="M 120 480 C 140 370 190 280 230 220 C 270 170 330 190 380 230 C 430 280 430 480 430 480 Z" fill="#fbfbfc" stroke="#2a2928" stroke-width="3"/>
+                  
+                  <!-- Horse Ears -->
+                  <path d="M 230 200 L 250 145 C 255 140 268 150 265 170 Z" fill="#f8f8f9" stroke="#222" stroke-width="2.5"/>
+                  <path d="M 335 185 L 365 140 C 375 145 375 160 365 180 Z" fill="#f4f4f6" stroke="#222" stroke-width="2.5"/>
+                  
+                  <!-- Horse Mane Forelock -->
+                  <path d="M 270 180 C 290 170 325 175 345 200 C 330 220 300 230 280 220 Z" fill="url(#horseMane)" stroke="#222" stroke-width="2"/>
+                  <path d="M 285 200 C 310 220 320 250 325 280" stroke="#d5c8b0" stroke-width="3" fill="none"/>
+
+                  <!-- Horse Head Profile -->
+                  <path d="M 245 205 C 240 270 250 320 270 350 C 300 395 340 430 365 435 C 390 440 400 410 395 370 C 390 320 370 260 340 220 Z" fill="#ffffff" stroke="#222" stroke-width="3"/>
+                  
+                  <!-- Horse Muzzle & Nostrils -->
+                  <path d="M 320 380 C 330 420 370 435 390 410 C 395 390 385 365 370 360 Z" fill="#f7cfd3" stroke="#222" stroke-width="2"/>
+                  <ellipse cx="345" cy="405" rx="8" ry="14" fill="#3a2e2b" transform="rotate(-15 345 405)"/>
+                  <ellipse cx="385" cy="412" rx="6" ry="10" fill="#3a2e2b"/>
+
+                  <!-- Horse Eye -->
+                  <ellipse cx="288" cy="272" rx="9" ry="12" fill="#18181b" transform="rotate(10 288 272)"/>
+                  <circle cx="286" cy="269" r="2.5" fill="#ffffff"/>
+
+                  <!-- Bridle & Reins -->
+                  <path d="M 252 230 L 372 375" stroke="#3d2a23" stroke-width="5" fill="none"/>
+                  <path d="M 270 345 L 345 235" stroke="#3d2a23" stroke-width="4.5" fill="none"/>
+                  <circle cx="365" cy="370" r="7" fill="#888" stroke="#222" stroke-width="1.5"/>
+                  <path d="M 365 375 C 340 420 280 430 230 380" stroke="#2b1a14" stroke-width="4" fill="none"/>
+                  
+                  <!-- Rainbow Bead Necklace of the horse -->
+                  <path d="M 225 250 C 230 310 250 380 295 440" stroke="#00d5ff" stroke-width="4" stroke-dasharray="7,5" fill="none"/>
+                  <path d="M 228 252 C 235 315 255 385 300 445" stroke="#ff007f" stroke-width="4" stroke-dasharray="7,7" stroke-dashoffset="4" fill="none"/>
+                  <path d="M 230 255 C 240 320 260 390 305 450" stroke="#ffd200" stroke-width="4" stroke-dasharray="7,7" stroke-dashoffset="8" fill="none"/>
+                </g>
+
+                <!-- Anees Ahmed (The Rider) -->
+                <g id="rider-group">
+                  <!-- Torso & Black Shirt -->
+                  <path d="M 20 250 C 40 210 90 200 145 220 C 190 240 205 320 215 420 L 5 440 Z" fill="#1c2128" stroke="#111" stroke-width="3"/>
+                  <!-- Collar & Placket -->
+                  <path d="M 95 215 L 115 255 L 135 220" stroke="#333e4d" stroke-width="3.5" fill="none"/>
+                  <path d="M 115 255 L 115 370" stroke="#2d3748" stroke-width="3"/>
+                  
+                  <!-- Left Arm holding reins -->
+                  <path d="M 25 260 C 20 330 50 380 95 390" stroke="#1c2128" stroke-width="26" stroke-linecap="round" fill="none"/>
+                  <path d="M 95 390 C 110 405 130 400 135 375" fill="#d99b7b" stroke="#222" stroke-width="2.5"/>
+
+                  <!-- Right Arm holding reins -->
+                  <path d="M 160 250 C 185 300 190 360 170 410" stroke="#1c2128" stroke-width="24" stroke-linecap="round" fill="none"/>
+                  <circle cx="170" cy="410" r="14" fill="#d99b7b" stroke="#222" stroke-width="2.5"/>
+
+                  <!-- Neck -->
+                  <rect x="95" y="170" width="35" height="45" rx="5" fill="#d99b7b" stroke="#222" stroke-width="2"/>
+                  
+                  <!-- Face & Features -->
+                  <path d="M 90 120 C 85 160 90 190 115 195 C 140 190 150 160 145 120 Z" fill="#e8a888" stroke="#222" stroke-width="2.5"/>
+                  <!-- Beard & Mustache -->
+                  <path d="M 102 165 C 112 168 122 168 132 165" stroke="#222" stroke-width="3.5" stroke-linecap="round"/>
+                  <path d="M 110 180 C 115 190 120 190 125 180" fill="#222"/>
+
+                  <!-- Wireframe Glasses -->
+                  <circle cx="106" cy="140" r="11" fill="rgba(255,255,255,0.25)" stroke="#1a202c" stroke-width="2.5"/>
+                  <circle cx="132" cy="140" r="11" fill="rgba(255,255,255,0.25)" stroke="#1a202c" stroke-width="2.5"/>
+                  <line x1="117" y1="140" x2="121" y2="140" stroke="#1a202c" stroke-width="2"/>
+
+                  <!-- Cap (Hat) -->
+                  <path d="M 80 120 C 80 75 155 75 155 120 Z" fill="#1e242d" stroke="#111" stroke-width="2.5"/>
+                  <!-- Visor / Peak -->
+                  <path d="M 75 120 C 60 122 80 135 120 130" fill="#111827" stroke="#000" stroke-width="2"/>
+
+                  <!-- Leather Reins held by hands -->
+                  <path d="M 130 385 L 210 405 L 360 380" stroke="#3e2723" stroke-width="3" fill="none"/>
+                  <path d="M 165 410 L 220 440" stroke="#3e2723" stroke-width="3" fill="none"/>
+                </g>
+
+                <!-- Water Spray & Beach Ripple Accent -->
+                <circle cx="150" cy="460" r="4" fill="#ffffff" opacity="0.7"/>
+                <circle cx="210" cy="470" r="5" fill="#ffffff" opacity="0.6"/>
+                <circle cx="340" cy="465" r="3" fill="#ffffff" opacity="0.8"/>
+              </svg>
+
+              <!-- Image Badge Overlay -->
+              <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between px-3 py-2 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-xs">
+                <span class="flex items-center gap-2 text-cyan-300 font-mono">
+                  <i class="fa-solid fa-horse text-amber-400"></i>
+                  The Seaview Beach Ride
+                </span>
+                <span class="text-[10px] text-slate-300 bg-white/10 px-2 py-0.5 rounded">
+                  Discipline & Focus
+                </span>
+              </div>
+            </div>
+
+            <!-- Profile Info Footer below artwork -->
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-cyan-400 to-pink-500 p-[2px]">
+                  <div class="w-full h-full rounded-full bg-[#111827] flex items-center justify-center font-bold text-cyan-300 text-sm">
+                    AA
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-white flex items-center gap-1.5">
+                    Anees Ahmed Qurashi
+                    <i class="fa-solid fa-circle-check text-cyan-400 text-xs" title="Verified Profile"></i>
+                  </h4>
+                  <p class="text-xs text-slate-400 font-mono">Pizza Max • Landhi, Karachi</p>
+                </div>
+              </div>
+
+              <!-- Quick Status -->
+              <div class="text-right">
+                <div class="text-[11px] font-mono text-emerald-400 flex items-center justify-end gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Active Shift
+                </div>
+                <div class="text-[10px] text-slate-400">4+ Yrs Continuous Service</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ABOUT & PROFESSIONAL IDENTITY SECTION -->
+      <section id="about" class="py-16 border-t border-white/10">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="text-xs font-mono tracking-widest uppercase text-cyan-400">Who I Am</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">
+            Dedicated Hospitality Professional & Leader
+          </h2>
+          <div class="w-16 h-1 bg-gradient-to-r from-cyan-400 to-pink-500 mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Card 1: Work Ethic & Growth -->
+          <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl mb-4">
+                <i class="fa-solid fa-stairs"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Meteoric Internal Growth</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Started on the dining floor as a diligent Bus Boy at Pizza Max. Through consistent punctuality, attention to table cleanliness, and quick learning, earned promotions to Order Taker, Senior Server, and now Restaurant Training Manager.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-cyan-300">
+              <span>Career Velocity</span>
+              <span class="font-bold">4 Years at Top Speed</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Hafiz-e-Quran Discipline -->
+          <div class="glass-card p-6 rounded-2xl flex flex-col justify-between relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 text-white/5 text-8xl font-serif select-none pointer-events-none">
+              ﷽
+            </div>
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl mb-4">
+                <i class="fa-solid fa-book-quran"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Hafiz-e-Quran Discipline</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Completed the memorization of the Holy Quran, cultivating remarkable mental stamina, ethical integrity, sharp memory, and unshakeable discipline. These principles guide every customer interaction and staff training session.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-purple-300">
+              <span>Core Value</span>
+              <span class="font-bold">Ethics & Diligence</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Customer Satisfaction & Sales -->
+          <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400 text-xl mb-4">
+                <i class="fa-solid fa-chart-line"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Customer Deals & Sales</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Adept at de-escalating customer friction, handling high-volume weekend rush hours, and driving restaurant turnover by promoting exclusive deals, signature toppings, and dessert pairings.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-pink-300">
+              <span>Revenue Focus</span>
+              <span class="font-bold">Max Order Value</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CAREER PROGRESSION TIMELINE -->
+      <section id="experience" class="py-16 border-t border-white/10">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+          <span class="text-xs font-mono tracking-widest uppercase text-cyan-400">The Journey</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">
+            Pizza Max Experience (2021 – 2026)
+          </h2>
+          <p class="text-sm text-slate-400 mt-2 font-light">
+            A 4-year journey of continuous promotion, mastering the restaurant floor from bottom to top.
+          </p>
+          <div class="w-16 h-1 bg-gradient-to-r from-cyan-400 to-pink-500 mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="relative max-w-4xl mx-auto">
+          <!-- Central Timeline Line -->
+          <div class="absolute left-4 sm:left-1/2 transform -translate-x-1/2 top-4 bottom-4 w-1 bg-gradient-to-b from-cyan-400 via-pink-500 to-purple-600 rounded-full opacity-40"></div>
+
+          <div class="space-y-10">
+
+            <!-- Timeline Item 1: Training Manager (Current) -->
+            <div class="relative flex flex-col sm:flex-row items-start">
+              <div class="flex items-center sm:w-1/2 sm:justify-end sm:pr-8 pl-12 sm:pl-0">
+                <div class="glass-card p-6 rounded-2xl w-full border-cyan-400/40 relative">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-mono uppercase px-2.5 py-1 rounded bg-cyan-400/20 text-cyan-300 font-bold">
+                      Current Milestone
+                    </span>
+                    <span class="text-xs font-mono text-slate-400">2024 - 2026</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white">Restaurant Training Manager</h3>
+                  <h4 class="text-xs font-mono text-cyan-400 mb-3">Pizza Max • Karachi, Pakistan</h4>
+                  <ul class="text-xs sm:text-sm text-slate-300 space-y-2 list-disc list-inside">
+                    <li>Led comprehensive onboarding programs for new waitstaff and floor apprentices.</li>
+                    <li>Orchestrated service standards, hygiene compliance, and prompt table turnaround times.</li>
+                    <li>Coordinated smoothly between the fast-paced kitchen line and front-of-house team.</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Timeline node dot -->
+              <div class="absolute left-4 sm:left-1/2 transform -translate-x-1/2 top-6 w-8 h-8 rounded-full bg-[#060913] border-2 border-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-400/50">
+                <div class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></div>
+              </div>
+            </div>
+
+            <!-- Timeline Item 2: Senior Server -->
+            <div class="relative flex flex-col sm:flex-row-reverse items-start">
+              <div class="flex items-center sm:w-1/2 sm:justify-start sm:pl-8 pl-12 sm:pl-0">
+                <div class="glass-card p-6 rounded-2xl w-full border-pink-400/30">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-mono uppercase px-2.5 py-1 rounded bg-pink-400/20 text-pink-300 font-bold">
+                      Promotion
+                    </span>
+                    <span class="text-xs font-mono text-slate-400">2023 - 2024</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white">Senior Server & Floor Captain</h3>
+                  <h4 class="text-xs font-mono text-pink-400 mb-3">Pizza Max • Karachi</h4>
+                  <ul class="text-xs sm:text-sm text-slate-300 space-y-2 list-disc list-inside">
+                    <li>Handled complex customer inquiries, special dietary requests, and resolved diner complaints.</li>
+                    <li>Championed POS terminal billing, daily cash reconciliations, and closing register audits.</li>
+                    <li>Achieved highest weekly upsell numbers for value deals and promotional beverages.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="absolute left-4 sm:left-1/2 transform -translate-x-1/2 top-6 w-6 h-6 rounded-full bg-[#060913] border-2 border-pink-500 flex items-center justify-center">
+                <div class="w-2 h-2 rounded-full bg-pink-400"></div>
+              </div>
+            </div>
+
+            <!-- Timeline Item 3: Order Taker & Cash Handling -->
+            <div class="relative flex flex-col sm:flex-row items-start">
+              <div class="flex items-center sm:w-1/2 sm:justify-end sm:pr-8 pl-12 sm:pl-0">
+                <div class="glass-card p-6 rounded-2xl w-full">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-mono uppercase px-2.5 py-1 rounded bg-purple-400/20 text-purple-300 font-bold">
+                      Skill Expansion
+                    </span>
+                    <span class="text-xs font-mono text-slate-400">2022 - 2023</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white">Order Taker & Cash Counter</h3>
+                  <h4 class="text-xs font-mono text-purple-400 mb-3">Pizza Max</h4>
+                  <ul class="text-xs sm:text-sm text-slate-300 space-y-2 list-disc list-inside">
+                    <li>Managed POS software, rapid ticket punches, and customer counter communications.</li>
+                    <li>Ensured 100% precision in cash intake, card payments, and discount vouchers.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="absolute left-4 sm:left-1/2 transform -translate-x-1/2 top-6 w-6 h-6 rounded-full bg-[#060913] border-2 border-purple-500 flex items-center justify-center">
+                <div class="w-2 h-2 rounded-full bg-purple-400"></div>
+              </div>
+            </div>
+
+            <!-- Timeline Item 4: Bus Boy (The Foundation) -->
+            <div class="relative flex flex-col sm:flex-row-reverse items-start">
+              <div class="flex items-center sm:w-1/2 sm:justify-start sm:pl-8 pl-12 sm:pl-0">
+                <div class="glass-card p-6 rounded-2xl w-full">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-mono uppercase px-2.5 py-1 rounded bg-slate-700 text-slate-300 font-bold">
+                      The Humble Start
+                    </span>
+                    <span class="text-xs font-mono text-slate-400">2021 - 2022</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white">Bus Boy & Dining Assistant</h3>
+                  <h4 class="text-xs font-mono text-slate-400 mb-3">Pizza Max</h4>
+                  <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    Maintained immaculate dining tables, assisted guests with seating, ensured condiment refills, and supported back-of-house sanitization. Proved reliability through strict punctuality and positive attitude.
+                  </p>
+                </div>
+              </div>
+              <div class="absolute left-4 sm:left-1/2 transform -translate-x-1/2 top-6 w-6 h-6 rounded-full bg-[#060913] border-2 border-slate-600 flex items-center justify-center">
+                <div class="w-2 h-2 rounded-full bg-slate-400"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS MATRIX SECTION -->
+      <section id="skills" class="py-16 border-t border-white/10">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="text-xs font-mono tracking-widest uppercase text-cyan-400">Competencies</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">
+            Hospitality & Management Expertise
+          </h2>
+          <div class="w-16 h-1 bg-gradient-to-r from-cyan-400 to-pink-500 mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          
+          <!-- Column 1: Functional Hospitality Skills -->
+          <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-6">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-bell-concierge text-cyan-400"></i>
+              Operational & Floor Mastery
+            </h3>
+
+            <!-- Skill 1 -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs font-mono">
+                <span class="text-slate-200">Customer Dealings & Conflict De-escalation</span>
+                <span class="text-cyan-400 font-bold">98%</span>
+              </div>
+              <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden p-[1px]">
+                <div class="bg-gradient-to-r from-cyan-400 to-blue-500 h-full rounded-full" style="width: 98%"></div>
+              </div>
+            </div>
+
+            <!-- Skill 2 -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs font-mono">
+                <span class="text-slate-200">Staff Training & Shift Leadership</span>
+                <span class="text-cyan-400 font-bold">95%</span>
+              </div>
+              <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden p-[1px]">
+                <div class="bg-gradient-to-r from-cyan-400 to-pink-500 h-full rounded-full" style="width: 95%"></div>
+              </div>
+            </div>
+
+            <!-- Skill 3 -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs font-mono">
+                <span class="text-slate-200">Order Taking & POS System Navigation</span>
+                <span class="text-cyan-400 font-bold">96%</span>
+              </div>
+              <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden p-[1px]">
+                <div class="bg-gradient-to-r from-pink-500 to-purple-500 h-full rounded-full" style="width: 96%"></div>
+              </div>
+            </div>
+
+            <!-- Skill 4 -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs font-mono">
+                <span class="text-slate-200">Cash Register & Revenue Reconciliation</span>
+                <span class="text-cyan-400 font-bold">94%</span>
+              </div>
+              <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden p-[1px]">
+                <div class="bg-gradient-to-r from-amber-400 to-orange-500 h-full rounded-full" style="width: 94%"></div>
+              </div>
+            </div>
+
+            <!-- Skill 5 -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs font-mono">
+                <span class="text-slate-200">Cross-department Floor & Kitchen Coordination</span>
+                <span class="text-cyan-400 font-bold">97%</span>
+              </div>
+              <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden p-[1px]">
+                <div class="bg-gradient-to-r from-emerald-400 to-cyan-500 h-full rounded-full" style="width: 97%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Key Badges & Languages -->
+          <div class="space-y-6 flex flex-col justify-between">
+            
+            <!-- Badges Panel -->
+            <div class="glass-card p-6 sm:p-8 rounded-2xl">
+              <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-award text-pink-400"></i>
+                Key Strengths & Competencies
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1.5 rounded-lg glass-panel text-xs text-cyan-300 border-cyan-400/30">
+                  <i class="fa-solid fa-check text-[10px] mr-1"></i> Rapid Deal Promotion
+                </span>
+                <span class="px-3 py-1.5 rounded-lg glass-panel text-xs text-pink-300 border-pink-400/30">
+                  <i class="fa-solid fa-check text-[10px] mr-1"></i> Complaint Resolution
+                </span>
+                <span class="px-3 py-1.5 rounded-lg glass-panel text-xs text-amber-300 border-amber-400/30">
+                  <i class="fa-solid fa-check text-[10px] mr-1"></i> POS Order Dispatch
+                </span>
+                <span class="px-3 py-1.5 rounded-lg glass-panel text-xs text-purple-300 border-purple-400/30">
+                  <i class="fa-solid fa-check text-[10px] mr-1"></i> Team Mentorship
+                </span>
+                <span class="px-3 py-1.5 rounded-lg glass-panel text-xs text-emerald-300 border-emerald-400/30">
+                  <i class="fa-solid fa-check text-[10px] mr-1"></i> Food Hygiene Audits
+                </span>
+                <span class="px-3 py-1.5 rounded-lg glass-panel text-xs text-blue-300 border-blue-400/30">
+                  <i class="fa-solid fa-check text-[10px] mr-1"></i> High-Stress Rush Management
+                </span>
+                <span class="px-3 py-1.5 rounded-lg glass-panel text-xs text-white border-white/20">
+                  <i class="fa-solid fa-check text-[10px] mr-1"></i> Daily Cash Reconciliation
+                </span>
+              </div>
+            </div>
+
+            <!-- Languages Card -->
+            <div class="glass-card p-6 rounded-2xl">
+              <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-language text-purple-400"></i>
+                Language Proficiency
+              </h3>
+              <div class="space-y-3 font-mono text-xs">
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-300 font-sans text-sm">Hindko (Mother Tongue)</span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">Perfect / Native</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-300 font-sans text-sm">Urdu (National Language)</span>
+                  <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">Fluent / Good</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-300 font-sans text-sm">English (Guest Service)</span>
+                  <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">Professional Working</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- EDUCATION & ACADEMIC HONORS -->
+      <section id="education" class="py-16 border-t border-white/10">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="text-xs font-mono tracking-widest uppercase text-cyan-400">Credentials</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">
+            Education & Sacred Honors
+          </h2>
+          <div class="w-16 h-1 bg-gradient-to-r from-cyan-400 to-pink-500 mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          
+          <!-- Item 1: Hafiz-e-Quran -->
+          <div class="glass-card p-6 rounded-2xl border-amber-400/30 text-center relative overflow-hidden group">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-400/40 text-amber-400 flex items-center justify-center text-2xl mx-auto mb-4 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-quran"></i>
+            </div>
+            <span class="text-xs font-mono text-amber-400 uppercase tracking-wider">Religious Milestone</span>
+            <h3 class="text-xl font-bold text-white mt-1">Hafiz-e-Quran</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+              Successfully memorized the entire Holy Quran with complete devotion, Tajweed, and strict mental discipline.
+            </p>
+            <div class="mt-4 pt-3 border-t border-white/10 text-xs font-mono text-amber-300">
+              Discipline & Moral Integrity
+            </div>
+          </div>
+
+          <!-- Item 2: Matriculation Grade A-One -->
+          <div class="glass-card p-6 rounded-2xl border-cyan-400/30 text-center relative overflow-hidden group">
+            <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-400/40 text-cyan-400 flex items-center justify-center text-2xl mx-auto mb-4 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <span class="text-xs font-mono text-cyan-400 uppercase tracking-wider">Board of Secondary Education</span>
+            <h3 class="text-xl font-bold text-white mt-1">Matriculation (Grade A-One)</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+              <strong>Prince English Secondary School</strong> (2021 - 2022). Achieved the highest academic distinction of <em>Grade A-One</em>.
+            </p>
+            <div class="mt-4 pt-3 border-t border-white/10 text-xs font-mono text-cyan-300">
+              Distinction & Excellence
+            </div>
+          </div>
+
+          <!-- Item 3: Intermediate Continued -->
+          <div class="glass-card p-6 rounded-2xl border-purple-400/30 text-center relative overflow-hidden group">
+            <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-400/40 text-purple-400 flex items-center justify-center text-2xl mx-auto mb-4 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-book-open-reader"></i>
+            </div>
+            <span class="text-xs font-mono text-purple-400 uppercase tracking-wider">Higher Secondary Education</span>
+            <h3 class="text-xl font-bold text-white mt-1">Intermediate Studies</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+              Karachi Board of Intermediate Education. Balancing advanced education with full-time hospitality management.
+            </p>
+            <div class="mt-4 pt-3 border-t border-white/10 text-xs font-mono text-purple-300">
+              Status: Continuing / Active
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ARTISTIC EQUESTRIAN GALLERY & PASSION -->
+      <section id="gallery" class="py-16 border-t border-white/10">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="text-xs font-mono tracking-widest uppercase text-cyan-400">Beyond The Restaurant</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">
+            Focus, Equine Passion & Character
+          </h2>
+          <p class="text-sm text-slate-400 mt-2 font-light">
+            Equestrian riding at Karachi Seaview beach reflects the focus, balance, and patience needed for high-pressure leadership.
+          </p>
+          <div class="w-16 h-1 bg-gradient-to-r from-cyan-400 to-pink-500 mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto glass-card p-6 sm:p-8 rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div class="space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+              <i class="fa-solid fa-compass"></i> Personal Philosophy
+            </div>
+            <h3 class="text-2xl font-bold text-white">Riding the Tide: Balance Under Pressure</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              "Guiding a high-spirited stallion along the Arabian Sea coast requires the exact same traits as managing a busy restaurant floor: a calm demeanor, firm command, total alertness, and mutual respect."
+            </p>
+            <div class="space-y-2 pt-2 text-xs font-mono text-slate-400">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-cyan-400"></i>
+                <span>Patience when managing diner demands</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-pink-400"></i>
+                <span>Clear communication that staff can rally behind</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-check text-amber-400"></i>
+                <span>Physical stamina for 10-hour weekend shifts</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Portrait Art Frame with Glass Depth -->
+          <div class="relative group cursor-pointer" id="interactive-card">
+            <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-pink-500 rounded-2xl blur opacity-30 group-hover:opacity-70 transition duration-500"></div>
+            <div class="relative rounded-2xl glass-panel p-4 overflow-hidden border border-white/20">
+              <!-- Illustrated Beach Horseback Riding Scene -->
+              <div class="h-64 rounded-xl bg-gradient-to-b from-[#f2e6d6] via-[#d5e4ec] to-[#92b5c4] flex items-center justify-center p-2 relative overflow-hidden">
+                <svg viewBox="0 0 300 350" class="w-full h-full object-contain">
+                  <!-- Subtle Waves -->
+                  <path d="M0,230 Q75,220 150,230 T300,230 L300,350 L0,350 Z" fill="#69929f" opacity="0.6"/>
+                  <!-- White Horse Outline -->
+                  <path d="M110,350 C120,270 150,210 180,160 C210,130 250,150 270,180 C290,210 290,350 290,350 Z" fill="#ffffff" stroke="#222" stroke-width="2"/>
+                  <!-- Rider in black shirt & glasses -->
+                  <path d="M40,230 C50,180 90,170 130,180 C150,220 160,280 170,350 L30,350 Z" fill="#1e242d" stroke="#111" stroke-width="2.5"/>
+                  <circle cx="105" cy="120" r="22" fill="#d99b7b" stroke="#111" stroke-width="2"/>
+                  <!-- Cap -->
+                  <path d="M80,115 C80,85 130,85 130,115 Z" fill="#111827"/>
+                  <path d="M75,115 L115,115" stroke="#111" stroke-width="3"/>
+                  <!-- Glasses -->
+                  <circle cx="98" cy="122" r="7" fill="none" stroke="#111" stroke-width="2"/>
+                  <circle cx="114" cy="122" r="7" fill="none" stroke="#111" stroke-width="2"/>
+                  <!-- Colorful bead reins -->
+                  <path d="M170,220 C180,260 200,300 230,340" stroke="#00f5ff" stroke-width="3" stroke-dasharray="5,3" fill="none"/>
+                  <path d="M173,222 C183,262 203,302 233,342" stroke="#ff007f" stroke-width="3" stroke-dasharray="5,3" stroke-dashoffset="3" fill="none"/>
+                </svg>
+                <div class="absolute bottom-2 left-2 bg-black/70 backdrop-blur-md px-3 py-1 rounded-lg text-[11px] font-mono text-cyan-300">
+                  <i class="fa-solid fa-water mr-1"></i> Seaview Sands, Karachi
+                </div>
+              </div>
+              <div class="mt-3 flex items-center justify-between text-xs text-slate-300">
+                <span class="font-mono">Anees Ahmed (Qurashi)</span>
+                <span class="text-cyan-400 font-mono">Resilience in Motion</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CONTACT & CONNECT SECTION -->
+      <section id="contact" class="py-16 border-t border-white/10">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="text-xs font-mono tracking-widest uppercase text-cyan-400">Get In Touch</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">
+            Let's Discuss New Opportunities
+          </h2>
+          <p class="text-sm text-slate-400 mt-2 font-light">
+            Available for Restaurant General Management, Hospitality Shift Lead, and Food Service Operations roles.
+          </p>
+          <div class="w-16 h-1 bg-gradient-to-r from-cyan-400 to-pink-500 mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
+          
+          <!-- Contact Channels Info (2 cols) -->
+          <div class="lg:col-span-2 space-y-4">
+            
+            <!-- WhatsApp / Phone -->
+            <a href="https://wa.me/923323250646" target="_blank" rel="noopener noreferrer" class="glass-card p-5 rounded-2xl block hover:border-emerald-400 group">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl group-hover:scale-110 transition-transform">
+                  <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <div>
+                  <div class="text-xs font-mono text-slate-400 uppercase">Phone & WhatsApp</div>
+                  <div class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">+92 332 3250646</div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:Ahmmedaneeso@gmail.com" class="glass-card p-5 rounded-2xl block hover:border-cyan-400 group">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl group-hover:scale-110 transition-transform">
+                  <i class="fa-regular fa-envelope"></i>
+                </div>
+                <div>
+                  <div class="text-xs font-mono text-slate-400 uppercase">Direct Email</div>
+                  <div class="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors">Ahmmedaneeso@gmail.com</div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Location -->
+            <div class="glass-card p-5 rounded-2xl">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400 text-xl">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div>
+                  <div class="text-xs font-mono text-slate-400 uppercase">Current Address</div>
+                  <div class="text-sm font-bold text-white">Future Colony Landhi, Karachi</div>
+                  <div class="text-[11px] text-slate-400">Sindh, Pakistan</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Profile Summary Snapshot Card -->
+            <div class="glass-panel p-5 rounded-2xl text-xs space-y-2 border-white/10 font-mono">
+              <div class="text-cyan-300 font-bold mb-1">Official Biodata Snapshot:</div>
+              <div class="flex justify-between border-b border-white/5 pb-1">
+                <span class="text-slate-400">Father's Name:</span>
+                <span class="text-white">Muhammad Ismail</span>
+              </div>
+              <div class="flex justify-between border-b border-white/5 pb-1">
+                <span class="text-slate-400">Date of Birth:</span>
+                <span class="text-white">Nov 24, 2003</span>
+              </div>
+              <div class="flex justify-between border-b border-white/5 pb-1">
+                <span class="text-slate-400">CNIC:</span>
+                <span class="text-white">42501-0451762-5</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Marital Status:</span>
+                <span class="text-white">Single</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Interactive Fast Message Form (3 cols) -->
+          <div class="lg:col-span-3 glass-card p-6 sm:p-8 rounded-2xl">
+            <h3 class="text-xl font-bold text-white mb-2">Send an Instant Inquiry</h3>
+            <p class="text-xs text-slate-400 mb-6">
+              Fill this quick message form to automatically compose a direct inquiry or interview invitation.
+            </p>
+
+            <form id="contact-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-mono text-slate-300 mb-1">Your Name</label>
+                  <input type="text" id="form-name" required placeholder="e.g. Tariq Mehmood" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                  <label class="block text-xs font-mono text-slate-300 mb-1">Organization / Brand</label>
+                  <input type="text" id="form-org" placeholder="e.g. Gourmet Dining / Hotel" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono text-slate-300 mb-1">Proposed Position or Subject</label>
+                <input type="text" id="form-subject" required placeholder="e.g. Restaurant Manager Interview / Consultation" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400">
+              </div>
+
+              <div>
+                <label class="block text-xs font-mono text-slate-300 mb-1">Message / Requirements</label>
+                <textarea id="form-message" rows="4" required placeholder="Detail your opening, shift schedule, or hospitality requirements..." class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 resize-none"></textarea>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                <button type="submit" class="flex-1 neon-btn py-3.5 px-6 rounded-xl font-medium tracking-wide flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-paper-plane text-xs"></i>
+                  <span>Send Message</span>
+                </button>
+                <button type="button" id="btn-whatsapp-compose" class="py-3.5 px-6 rounded-xl glass-panel text-emerald-400 border-emerald-500/40 hover:bg-emerald-500/10 text-sm font-medium flex items-center justify-center gap-2 transition-colors">
+                  <i class="fa-brands fa-whatsapp text-lg"></i>
+                  <span>Send via WhatsApp</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-white/10 py-8 px-4 text-center pointer-events-auto glass-panel mt-12">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-mono">
+        <div>
+          © 2026 <strong class="text-white">Anees Ahmed Qurashi</strong> • All Rights Reserved.
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="text-cyan-400">Hafiz-e-Quran</span>
+          <span>•</span>
+          <span class="text-pink-400">Pizza Max Hospitality Lead</span>
+          <span>•</span>
+          <a href="#hero" class="hover:text-white transition-colors">Back to Top ↑</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- FLOATING GLASSMORPHISM PARTICLE AURA CONTROL PANEL -->
+  <aside id="aura-panel" class="fixed bottom-6 right-4 sm:right-8 z-50 w-[320px] sm:w-[350px] glass-panel rounded-2xl p-5 border border-cyan-400/40 shadow-2xl transition-all duration-300 transform translate-y-0 opacity-100">
+    
+    <!-- Panel Header with Minimize -->
+    <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+      <div class="flex items-center gap-2">
+        <div class="w-3 h-3 rounded-full bg-cyan-400 animate-ping"></div>
+        <h3 class="font-mono font-bold text-xs text-white uppercase tracking-wider">
+          Particle Aura Studio
+        </h3>
+      </div>
+      <div class="flex items-center gap-2">
+        <!-- Canvas interaction mode badge -->
+        <span id="fps-badge" class="font-mono text-[10px] text-cyan-300 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800">
+          60 FPS
+        </span>
+        <button id="btn-minimize-panel" class="text-slate-400 hover:text-white p-1 text-sm">
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Controls Body -->
+    <div id="aura-controls-body" class="space-y-4 text-xs font-mono">
+      
+      <!-- Color Theme Switcher -->
+      <div>
+        <label class="block text-slate-300 mb-2 font-medium flex justify-between">
+          <span>Aura Palette</span>
+          <span id="current-theme-name" class="text-cyan-400 font-semibold">Cyber Neon</span>
+        </label>
+        <div class="grid grid-cols-4 gap-2">
+          <!-- Cyber Neon -->
+          <button class="theme-select-btn p-2 rounded-xl border border-cyan-400/60 bg-gradient-to-tr from-cyan-500/20 to-pink-500/20 hover:scale-105 transition-transform text-center" data-theme="cyber" title="Cyber Neon">
+            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-[#00f5ff] to-[#ff007f] mx-auto mb-1"></div>
+            <span class="text-[9px] text-white">Cyber</span>
+          </button>
+          <!-- Emerald Aurora -->
+          <button class="theme-select-btn p-2 rounded-xl border border-white/10 hover:border-emerald-400/60 bg-gradient-to-tr from-emerald-500/20 to-cyan-500/20 hover:scale-105 transition-transform text-center" data-theme="aurora" title="Emerald Aurora">
+            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-[#00ffa3] to-[#00d5ff] mx-auto mb-1"></div>
+            <span class="text-[9px] text-white">Aurora</span>
+          </button>
+          <!-- Golden Amber -->
+          <button class="theme-select-btn p-2 rounded-xl border border-white/10 hover:border-amber-400/60 bg-gradient-to-tr from-amber-500/20 to-orange-500/20 hover:scale-105 transition-transform text-center" data-theme="amber" title="Golden Amber">
+            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-[#ffd200] to-[#ff5722] mx-auto mb-1"></div>
+            <span class="text-[9px] text-white">Amber</span>
+          </button>
+          <!-- Electric Violet -->
+          <button class="theme-select-btn p-2 rounded-xl border border-white/10 hover:border-purple-400/60 bg-gradient-to-tr from-purple-500/20 to-indigo-500/20 hover:scale-105 transition-transform text-center" data-theme="violet" title="Electric Violet">
+            <div class="w-4 h-4 rounded-full bg-gradient-to-r from-[#a855f7] to-[#6366f1] mx-auto mb-1"></div>
+            <span class="text-[9px] text-white">Violet</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Slider 1: Particle Count -->
+      <div>
+        <div class="flex justify-between text-slate-300 mb-1">
+          <span>Particle Count</span>
+          <span id="val-particle-count" class="text-cyan-400 font-bold">95</span>
+        </div>
+        <input type="range" id="slider-particle-count" min="30" max="220" value="95" class="w-full">
+      </div>
+
+      <!-- Slider 2: Speed / Velocity -->
+      <div>
+        <div class="flex justify-between text-slate-300 mb-1">
+          <span>Velocity / Flow</span>
+          <span id="val-particle-speed" class="text-cyan-400 font-bold">1.2x</span>
+        </div>
+        <input type="range" id="slider-particle-speed" min="0.3" max="3.5" step="0.1" value="1.2" class="w-full">
+      </div>
+
+      <!-- Slider 3: Aura Connection Radius -->
+      <div>
+        <div class="flex justify-between text-slate-300 mb-1">
+          <span>Aura Link Distance</span>
+          <span id="val-particle-radius" class="text-cyan-400 font-bold">135px</span>
+        </div>
+        <input type="range" id="slider-particle-radius" min="60" max="220" value="135" class="w-full">
+      </div>
+
+      <!-- Mouse Physics Interaction Mode -->
+      <div>
+        <label class="block text-slate-300 mb-1.5">Mouse Cursor Reaction</label>
+        <div class="grid grid-cols-3 gap-1.5 bg-black/40 p-1 rounded-xl border border-white/5">
+          <button class="mode-select-btn py-1.5 rounded-lg text-[10px] text-center font-bold bg-cyan-500/30 text-cyan-300 border border-cyan-400/40" data-mode="attract">
+            <i class="fa-solid fa-magnet mr-1"></i>Attract
+          </button>
+          <button class="mode-select-btn py-1.5 rounded-lg text-[10px] text-center text-slate-400 hover:text-white" data-mode="repel">
+            <i class="fa-solid fa-burst mr-1"></i>Repel
+          </button>
+          <button class="mode-select-btn py-1.5 rounded-lg text-[10px] text-center text-slate-400 hover:text-white" data-mode="vortex">
+            <i class="fa-solid fa-wind mr-1"></i>Vortex
+          </button>
+        </div>
+      </div>
+
+      <!-- Shockwave & Reset Action -->
+      <div class="pt-2 flex gap-2">
+        <button id="btn-aura-shockwave" class="flex-1 py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-cyan-300 text-[11px] font-bold flex items-center justify-center gap-1.5 transition-colors">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          Trigger Nova Pulse
+        </button>
+        <button id="btn-reset-aura" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white text-xs" title="Reset Default Physics">
+          <i class="fa-solid fa-rotate-left"></i>
+        </button>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- MINIMIZED RESTORE BUTTON FOR AURA PANEL -->
+  <button id="btn-restore-panel" class="hidden fixed bottom-6 right-4 sm:right-8 z-50 glass-panel border border-cyan-400 text-cyan-400 hover:text-white px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2 font-mono text-xs animate-pulse-glow">
+    <i class="fa-solid fa-sliders"></i>
+    <span>Particle Studio</span>
+  </button>
+
+  <!-- RESUME MODAL VIEWER -->
+  <div id="resume-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+    <div class="glass-panel w-full max-w-3xl rounded-3xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto border border-cyan-400/40 relative shadow-2xl space-y-6">
+      
+      <!-- Close Button -->
+      <button id="btn-close-resume" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center text-sm transition-colors">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Resume Header -->
+      <div class="border-b border-white/10 pb-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">ANEES AHMED</h2>
+            <div class="text-cyan-400 font-mono text-xs sm:text-sm uppercase tracking-wider font-semibold">
+              Restaurant Training Manager / Senior Server
+            </div>
+            <div class="text-xs text-slate-400 mt-1">
+              Hafiz-e-Quran • Future Colony Landhi, Karachi • +92 332 3250646
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="window.print()" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-mono text-white flex items-center gap-1.5 transition-colors">
+              <i class="fa-solid fa-print"></i> Print CV
+            </button>
+            <a href="mailto:Ahmmedaneeso@gmail.com" class="px-3 py-2 rounded-xl neon-btn text-xs font-mono flex items-center gap-1.5">
+              <i class="fa-solid fa-envelope"></i> Hire Anees
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resume Body Grid -->
+      <div class="space-y-5 text-xs sm:text-sm leading-relaxed text-slate-300">
+        
+        <!-- Summary -->
+        <div>
+          <h4 class="font-bold text-white uppercase font-mono tracking-wider text-xs text-cyan-300 mb-1">
+            Professional Profile
+          </h4>
+          <p>
+            Dedicated hospitality professional with over 4 years of uninterrupted progression at Pizza Max Karachi. Advanced through merit from Bus Boy to Senior Server and Training Manager. Hafiz-e-Quran with deep commitment to discipline, operational rigor, and five-star customer experience.
+          </p>
+        </div>
+
+        <!-- Experience -->
+        <div>
+          <h4 class="font-bold text-white uppercase font-mono tracking-wider text-xs text-cyan-300 mb-2">
+            Work Experience (2021 – 2026)
+          </h4>
+          <div class="glass-card p-4 rounded-xl space-y-2 border-white/5">
+            <div class="flex justify-between font-bold text-white">
+              <span>Pizza Max, Karachi</span>
+              <span class="text-cyan-400 font-mono">2021 – 2026</span>
+            </div>
+            <div class="text-xs font-mono text-pink-400">Training Manager & Senior Server</div>
+            <ul class="list-disc list-inside space-y-1 text-slate-300 text-xs">
+              <li><strong>Operational Excellence:</strong> Progressed from Bus Boy to Training Manager through consistent shift punctuality and floor leadership over 4 years.</li>
+              <li><strong>Customer Satisfaction:</strong> Handled complex customer inquiries and resolved complaints professionally to ensure a positive dining experience.</li>
+              <li><strong>Sales & Marketing:</strong> Actively promoted restaurant deals and menu items to increase average daily ticket sales.</li>
+              <li><strong>Team Coordination:</strong> Partnered closely with kitchen masters and floor staff for fast, mistake-free order turnaround.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Education & Achievements -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="glass-card p-4 rounded-xl border-white/5">
+            <h4 class="font-bold text-white uppercase font-mono tracking-wider text-xs text-cyan-300 mb-2">
+              Education
+            </h4>
+            <ul class="space-y-2 text-xs">
+              <li><strong>Intermediate:</strong> Ongoing studies (Karachi)</li>
+              <li><strong>Matriculation:</strong> Prince English Sec. School (2021) — <span class="text-amber-400 font-bold">Grade A-One</span></li>
+              <li><strong>Religious Education:</strong> Hafiz-e-Quran</li>
+            </ul>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl border-white/5">
+            <h4 class="font-bold text-white uppercase font-mono tracking-wider text-xs text-cyan-300 mb-2">
+              Key Achievements
+            </h4>
+            <ul class="space-y-1.5 text-xs">
+              <li>🏆 Completed Hifz-e-Quran with dedication & memorization stamina.</li>
+              <li>🏆 Achieved Distinction (Grade A-One) in Secondary School Board.</li>
+              <li>🏆 3 successive promotions within 4 years at Pizza Max.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Skills & Languages -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="glass-card p-4 rounded-xl border-white/5">
+            <h4 class="font-bold text-white uppercase font-mono tracking-wider text-xs text-cyan-300 mb-1">
+              Core Skills
+            </h4>
+            <div class="flex flex-wrap gap-1 text-[11px] font-mono text-cyan-200">
+              <span class="bg-white/5 px-2 py-0.5 rounded">Customer Relations</span>
+              <span class="bg-white/5 px-2 py-0.5 rounded">Staff Training</span>
+              <span class="bg-white/5 px-2 py-0.5 rounded">POS Systems</span>
+              <span class="bg-white/5 px-2 py-0.5 rounded">Cash Handling</span>
+              <span class="bg-white/5 px-2 py-0.5 rounded">Crisis Management</span>
+            </div>
+          </div>
+
+          <div class="glass-card p-4 rounded-xl border-white/5">
+            <h4 class="font-bold text-white uppercase font-mono tracking-wider text-xs text-cyan-300 mb-1">
+              Languages
+            </h4>
+            <div class="text-xs space-y-1">
+              <div>Hindko: <span class="text-emerald-400 font-mono">Perfect / Native</span></div>
+              <div>Urdu: <span class="text-cyan-400 font-mono">Good / Fluent</span></div>
+              <div>English: <span class="text-purple-400 font-mono">Normal / Service Standard</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed top-20 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- VANILLA JAVASCRIPT: PARTICLE AURA SYSTEM + SOUND SYNTH + UI -->
+  <script>
+    /**
+     * NEON-GLASS PARTICLE AURA ENGINE
+     * High-performance HTML5 Canvas with dual neon gradient links,
+     * mouse attraction/repulsion fields, click nova bursts, and theme synchronization.
+     */
+
+    // --- Audio Synthesizer (Zero external dependencies) ---
+    class AuraAudioSynth {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+      }
+
+      init() {
+        if (!this.ctx && typeof (window.AudioContext || window.webkitAudioContext) !== 'undefined') {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+      }
+
+      playPing(freq = 520, type = 'sine', duration = 0.25) {
+        if (!this.enabled) return;
+        try {
+          this.init();
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+          if (!this.ctx) return;
+
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(freq * 1.5, this.ctx.currentTime + duration);
+
+          gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch (e) {
+          // Audio blocked or unsupported
+        }
+      }
+    }
+
+    const soundFX = new AuraAudioSynth();
+
+    // --- Color Themes ---
+    const THEMES = {
+      cyber: {
+        name: 'Cyber Neon',
+        primary: '#00f5ff',
+        secondary: '#ff007f',
+        accentGlow: 'rgba(0, 245, 255, 0.45)',
+        cardBorder: 'rgba(0, 245, 255, 0.25)',
+        particleAlpha: 0.8,
+        lineColor: 'rgba(0, 245, 255,'
+      },
+      aurora: {
+        name: 'Emerald Aurora',
+        primary: '#00ffa3',
+        secondary: '#00d5ff',
+        accentGlow: 'rgba(0, 255, 163, 0.45)',
+        cardBorder: 'rgba(0, 255, 163, 0.25)',
+        particleAlpha: 0.8,
+        lineColor: 'rgba(0, 255, 163,'
+      },
+      amber: {
+        name: 'Golden Amber',
+        primary: '#ffd200',
+        secondary: '#ff5722',
+        accentGlow: 'rgba(255, 210, 0, 0.45)',
+        cardBorder: 'rgba(255, 210, 0, 0.25)',
+        particleAlpha: 0.8,
+        lineColor: 'rgba(255, 210, 0,'
+      },
+      violet: {
+        name: 'Electric Violet',
+        primary: '#a855f7',
+        secondary: '#6366f1',
+        accentGlow: 'rgba(168, 85, 247, 0.45)',
+        cardBorder: 'rgba(168, 85, 247, 0.25)',
+        particleAlpha: 0.8,
+        lineColor: 'rgba(168, 85, 247,'
+      }
+    };
+
+    // --- Particle Engine ---
+    class Particle {
+      constructor(canvasWidth, canvasHeight, themeKey) {
+        this.reset(canvasWidth, canvasHeight, themeKey);
+      }
+
+      reset(w, h, themeKey) {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.radius = Math.random() * 2.5 + 1.2;
+        
+        // Velocity vectors
+        const angle = Math.random() * Math.PI * 2;
+        const baseSpeed = Math.random() * 0.9 + 0.4;
+        this.vx = Math.cos(angle) * baseSpeed;
+        this.vy = Math.sin(angle) * baseSpeed;
+        
+        this.colorType = Math.random() > 0.4 ? 'primary' : 'secondary';
+        this.pulseSpeed = Math.random() * 0.03 + 0.01;
+        this.pulse = Math.random() * Math.PI;
+      }
+
+      update(width, height, speedMultiplier, mouse, interactionMode) {
+        // Natural movement with speed multiplier
+        this.x += this.vx * speedMultiplier;
+        this.y += this.vy * speedMultiplier;
+
+        // Subtle pulsing of size
+        this.pulse += this.pulseSpeed;
+
+        // Screen boundary bounce
+        if (this.x < 0) {
+          this.x = 0;
+          this.vx *= -1;
+        } else if (this.x > width) {
+          this.x = width;
+          this.vx *= -1;
+        }
+
+        if (this.y < 0) {
+          this.y = 0;
+          this.vy *= -1;
+        } else if (this.y > height) {
+          this.y = height;
+          this.vy *= -1;
+        }
+
+        // Mouse Aura Interaction
+        if (mouse.active) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const maxDist = mouse.radius;
+
+          if (dist < maxDist && dist > 1) {
+            const force = (1 - dist / maxDist);
+            const normX = dx / dist;
+            const normY = dy / dist;
+
+            if (interactionMode === 'attract') {
+              this.x += normX * force * 4.2;
+              this.y += normY * force * 4.2;
+            } else if (interactionMode === 'repel') {
+              this.x -= normX * force * 7.0;
+              this.y -= normY * force * 7.0;
+            } else if (interactionMode === 'vortex') {
+              // Perpendicular tangential orbital push
+              this.x += -normY * force * 5.0 + normX * force * 0.5;
+              this.y += normX * force * 5.0 + normY * force * 0.5;
+            }
+          }
+        }
+      }
+
+      draw(ctx, currentTheme) {
+        const theme = THEMES[currentTheme];
+        const color = this.colorType === 'primary' ? theme.primary : theme.secondary;
+        const currentRadius = this.radius + Math.sin(this.pulse) * 0.6;
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, Math.max(0.6, currentRadius), 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 10;
+        ctx.fill();
+        ctx.shadowBlur = 0; // reset
+      }
+    }
+
+    // --- Shockwave Ripple Ring ---
+    class Shockwave {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.radius = 5;
+        this.maxRadius = 180;
+        this.color = color;
+        this.alpha = 1;
+        this.alive = true;
+      }
+
+      update() {
+        this.radius += 6.5;
+        this.alpha -= 0.028;
+        if (this.alpha <= 0 || this.radius >= this.maxRadius) {
+          this.alive = false;
+        }
+      }
+
+      draw(ctx) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = this.color;
+        ctx.globalAlpha = Math.max(0, this.alpha);
+        ctx.lineWidth = 3;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 15;
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+
+    // --- Main Application Controller ---
+    class ParticleAuraApp {
+      constructor() {
+        this.canvas = document.getElementById('particle-canvas');
+        this.ctx = this.canvas.getContext('2d');
+        
+        // Physics settings
+        this.particleCount = 95;
+        this.speedMultiplier = 1.2;
+        this.connectionRadius = 135;
+        this.currentTheme = 'cyber';
+        this.interactionMode = 'attract';
+        
+        // Mouse State
+        this.mouse = {
+          x: -1000,
+          y: -1000,
+          active: false,
+          radius: 180
+        };
+
+        this.particles = [];
+        this.shockwaves = [];
+        this.lastTime = performance.now();
+        this.frameCount = 0;
+        this.fps = 60;
+
+        this.initCanvas();
+        this.populateParticles();
+        this.bindEvents();
+        this.applyThemeStyles();
+        this.animate();
+      }
+
+      initCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+        this.canvas.width = this.width * dpr;
+        this.canvas.height = this.height * dpr;
+        this.ctx.scale(dpr, dpr);
+      }
+
+      populateParticles() {
+        this.particles = [];
+        for (let i = 0; i < this.particleCount; i++) {
+          this.particles.push(new Particle(this.width, this.height, this.currentTheme));
+        }
+      }
+
+      triggerShockwave(x, y) {
+        const theme = THEMES[this.currentTheme];
+        this.shockwaves.push(new Shockwave(x, y, theme.primary));
+        soundFX.playPing(640, 'triangle', 0.35);
+
+        // Disperse nearby particles outward violently
+        this.particles.forEach(p => {
+          const dx = p.x - x;
+          const dy = p.y - y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 200 && dist > 1) {
+            const push = (1 - dist / 200) * 16;
+            p.x += (dx / dist) * push;
+            p.y += (dy / dist) * push;
+          }
+        });
+      }
+
+      bindEvents() {
+        // Window Resize
+        window.addEventListener('resize', () => {
+          this.initCanvas();
+        });
+
+        // Mouse Tracker
+        window.addEventListener('mousemove', (e) => {
+          this.mouse.x = e.clientX;
+          this.mouse.y = e.clientY;
+          this.mouse.active = true;
+        });
+
+        window.addEventListener('mouseleave', () => {
+          this.mouse.active = false;
+        });
+
+        // Touch Tracker for Mobile
+        window.addEventListener('touchstart', (e) => {
+          if (e.touches.length > 0) {
+            this.mouse.x = e.touches[0].clientX;
+            this.mouse.y = e.touches[0].clientY;
+            this.mouse.active = true;
+          }
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+          if (e.touches.length > 0) {
+            this.mouse.x = e.touches[0].clientX;
+            this.mouse.y = e.touches[0].clientY;
+            this.mouse.active = true;
+          }
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => {
+          this.mouse.active = false;
+        });
+
+        // Click / Tap canvas nova ripple
+        window.addEventListener('click', (e) => {
+          // Avoid triggering on control panel and links
+          if (e.target.closest('#aura-panel') || e.target.closest('#resume-modal') || e.target.closest('a') || e.target.closest('button') || e.target.closest('input')) {
+            return;
+          }
+          this.triggerShockwave(e.clientX, e.clientY);
+        });
+
+        // UI Sliders
+        const sliderCount = document.getElementById('slider-particle-count');
+        const valCount = document.getElementById('val-particle-count');
+        sliderCount.addEventListener('input', (e) => {
+          this.particleCount = parseInt(e.target.value);
+          valCount.textContent = this.particleCount;
+          this.adjustParticleCount();
+        });
+
+        const sliderSpeed = document.getElementById('slider-particle-speed');
+        const valSpeed = document.getElementById('val-particle-speed');
+        sliderSpeed.addEventListener('input', (e) => {
+          this.speedMultiplier = parseFloat(e.target.value);
+          valSpeed.textContent = this.speedMultiplier.toFixed(1) + 'x';
+        });
+
+        const sliderRadius = document.getElementById('slider-particle-radius');
+        const valRadius = document.getElementById('val-particle-radius');
+        sliderRadius.addEventListener('input', (e) => {
+          this.connectionRadius = parseInt(e.target.value);
+          valRadius.textContent = this.connectionRadius + 'px';
+        });
+
+        // Theme Buttons
+        document.querySelectorAll('.theme-select-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const themeKey = btn.dataset.theme;
+            this.setTheme(themeKey);
+            soundFX.playPing(750, 'sine', 0.2);
+          });
+        });
+
+        // Mode Buttons (Attract / Repel / Vortex)
+        document.querySelectorAll('.mode-select-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.mode-select-btn').forEach(b => {
+              b.classList.remove('bg-cyan-500/30', 'text-cyan-300', 'border', 'border-cyan-400/40');
+              b.classList.add('text-slate-400');
+            });
+            btn.classList.add('bg-cyan-500/30', 'text-cyan-300', 'border', 'border-cyan-400/40');
+            btn.classList.remove('text-slate-400');
+            this.interactionMode = btn.dataset.mode;
+            soundFX.playPing(580, 'sine', 0.15);
+          });
+        });
+
+        // Nova Shockwave button
+        document.getElementById('btn-aura-shockwave').addEventListener('click', () => {
+          this.triggerShockwave(this.width / 2, this.height / 2);
+          showToast('⚡ Nova Pulse Triggered across the Aura Canvas!');
+        });
+
+        // Reset button
+        document.getElementById('btn-reset-aura').addEventListener('click', () => {
+          this.particleCount = 95;
+          this.speedMultiplier = 1.2;
+          this.connectionRadius = 135;
+          sliderCount.value = 95;
+          sliderSpeed.value = 1.2;
+          sliderRadius.value = 135;
+          valCount.textContent = '95';
+          valSpeed.textContent = '1.2x';
+          valRadius.textContent = '135px';
+          this.adjustParticleCount();
+          this.setTheme('cyber');
+          showToast('✨ Aura Physics Restored to Factory Defaults');
+        });
+
+        // Audio toggle
+        const audioBtn = document.getElementById('btn-audio-toggle');
+        const audioIcon = document.getElementById('audio-icon');
+        audioBtn.addEventListener('click', () => {
+          soundFX.enabled = !soundFX.enabled;
+          if (soundFX.enabled) {
+            audioIcon.className = 'fa-solid fa-volume-high text-cyan-400';
+            showToast('🔊 Audio Aura Effects Enabled');
+            soundFX.playPing(880, 'triangle', 0.2);
+          } else {
+            audioIcon.className = 'fa-solid fa-volume-xmark text-slate-500';
+            showToast('🔇 Audio Aura Effects Muted');
+          }
+        });
+      }
+
+      adjustParticleCount() {
+        if (this.particles.length < this.particleCount) {
+          while (this.particles.length < this.particleCount) {
+            this.particles.push(new Particle(this.width, this.height, this.currentTheme));
+          }
+        } else if (this.particles.length > this.particleCount) {
+          this.particles.splice(this.particleCount);
+        }
+      }
+
+      setTheme(themeKey) {
+        if (!THEMES[themeKey]) return;
+        this.currentTheme = themeKey;
+        document.getElementById('current-theme-name').textContent = THEMES[themeKey].name;
+
+        // Update Theme Button Active States
+        document.querySelectorAll('.theme-select-btn').forEach(b => {
+          if (b.dataset.theme === themeKey) {
+            b.classList.add('border-cyan-400/80', 'scale-105');
+          } else {
+            b.classList.remove('border-cyan-400/80', 'scale-105');
+          }
+        });
+
+        this.applyThemeStyles();
+        showToast(`Theme switched to: ${THEMES[themeKey].name}`);
+      }
+
+      applyThemeStyles() {
+        const t = THEMES[this.currentTheme];
+        document.documentElement.style.setProperty('--primary-neon', t.primary);
+        document.documentElement.style.setProperty('--secondary-neon', t.secondary);
+        document.documentElement.style.setProperty('--accent-glow', t.accentGlow);
+        document.documentElement.style.setProperty('--glass-border', t.cardBorder);
+      }
+
+      drawConnections() {
+        const theme = THEMES[this.currentTheme];
+        const maxDistSq = this.connectionRadius * this.connectionRadius;
+
+        for (let i = 0; i < this.particles.length; i++) {
+          for (let j = i + 1; j < this.particles.length; j++) {
+            const p1 = this.particles[i];
+            const p2 = this.particles[j];
+
+            const dx = p1.x - p2.x;
+            const dy = p1.y - p2.y;
+            const distSq = dx * dx + dy * dy;
+
+            if (distSq < maxDistSq) {
+              const alpha = (1 - distSq / maxDistSq) * 0.38;
+              this.ctx.beginPath();
+              this.ctx.moveTo(p1.x, p1.y);
+              this.ctx.lineTo(p2.x, p2.y);
+              this.ctx.strokeStyle = `${theme.lineColor} ${alpha})`;
+              this.ctx.lineWidth = 1;
+              this.ctx.stroke();
+            }
+          }
+        }
+      }
+
+      animate() {
+        const now = performance.now();
+        this.frameCount++;
+        if (now - this.lastTime >= 1000) {
+          this.fps = this.frameCount;
+          this.frameCount = 0;
+          this.lastTime = now;
+          document.getElementById('fps-badge').textContent = `${this.fps} FPS`;
+        }
+
+        // Slight dark trailing for motion blur
+        this.ctx.fillStyle = 'rgba(6, 9, 19, 0.28)';
+        this.ctx.fillRect(0, 0, this.width, this.height);
+
+        // Update & Render Particles
+        for (let i = 0; i < this.particles.length; i++) {
+          const p = this.particles[i];
+          p.update(this.width, this.height, this.speedMultiplier, this.mouse, this.interactionMode);
+          p.draw(this.ctx, this.currentTheme);
+        }
+
+        // Draw connecting aura filaments
+        this.drawConnections();
+
+        // Update & Render Shockwaves
+        for (let i = this.shockwaves.length - 1; i >= 0; i--) {
+          const sw = this.shockwaves[i];
+          sw.update();
+          sw.draw(this.ctx);
+          if (!sw.alive) {
+            this.shockwaves.splice(i, 1);
+          }
+        }
+
+        requestAnimationFrame(() => this.animate());
+      }
+    }
+
+    // --- UI Helpers & Modal Logic ---
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'glass-panel px-4 py-2.5 rounded-xl border-cyan-400/40 text-white font-mono text-xs flex items-center gap-2 shadow-2xl transition-all duration-300 transform translate-x-10 opacity-0 pointer-events-auto';
+      toast.innerHTML = `<i class="fa-solid fa-sparkles text-cyan-400"></i> <span>${message}</span>`;
+      container.appendChild(toast);
+
+      // Animate in
+      setTimeout(() => {
+        toast.classList.remove('translate-x-10', 'opacity-0');
+      }, 20);
+
+      // Dismiss after 3.5 seconds
+      setTimeout(() => {
+        toast.classList.add('translate-x-10', 'opacity-0');
+        setTimeout(() => toast.remove(), 350);
+      }, 3500);
+    }
+
+    // Setup interactive events on page load
+    window.onload = function() {
+      // 1. Initialize Particle Engine
+      const app = new ParticleAuraApp();
+
+      // 2. Control Panel Minimize / Restore Toggle
+      const panel = document.getElementById('aura-panel');
+      const btnMinimize = document.getElementById('btn-minimize-panel');
+      const btnRestore = document.getElementById('btn-restore-panel');
+      const btnToggleNav = document.getElementById('btn-toggle-panel');
+
+      function hidePanel() {
+        panel.classList.add('opacity-0', 'translate-y-8', 'pointer-events-none');
+        btnRestore.classList.remove('hidden');
+      }
+
+      function showPanel() {
+        panel.classList.remove('opacity-0', 'translate-y-8', 'pointer-events-none');
+        btnRestore.classList.add('hidden');
+      }
+
+      btnMinimize.addEventListener('click', hidePanel);
+      btnRestore.addEventListener('click', showPanel);
+      btnToggleNav.addEventListener('click', () => {
+        if (panel.classList.contains('opacity-0')) {
+          showPanel();
+        } else {
+          hidePanel();
+        }
+      });
+
+      // 3. Resume Modal Logic
+      const resumeModal = document.getElementById('resume-modal');
+      const btnOpenResume = document.getElementById('btn-open-resume');
+      const btnCloseResume = document.getElementById('btn-close-resume');
+
+      btnOpenResume.addEventListener('click', () => {
+        resumeModal.classList.add('modal-active', 'pointer-events-auto');
+        soundFX.playPing(600, 'sine', 0.2);
+      });
+
+      btnCloseResume.addEventListener('click', () => {
+        resumeModal.classList.remove('modal-active', 'pointer-events-auto');
+      });
+
+      resumeModal.addEventListener('click', (e) => {
+        if (e.target === resumeModal) {
+          resumeModal.classList.remove('modal-active', 'pointer-events-auto');
+        }
+      });
+
+      // 4. Contact Form Submission
+      const form = document.getElementById('contact-form');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('form-name').value;
+        const subject = document.getElementById('form-subject').value;
+        showToast(`Thank you, ${name}! Your inquiry regarding "${subject}" has been drafted.`);
+        form.reset();
+      });
+
+      // WhatsApp quick composer
+      document.getElementById('btn-whatsapp-compose').addEventListener('click', () => {
+        const name = document.getElementById('form-name').value || 'a potential employer/partner';
+        const msg = document.getElementById('form-message').value || 'I am interested in your hospitality background at Pizza Max.';
+        const text = encodeURIComponent(`Hello Anees, I am ${name}. ${msg}`);
+        window.open(`https://wa.me/923323250646?text=${text}`, '_blank');
+      });
+
+      // 5. 3D Card Tilt Effect on Interactive Frame
+      const card = document.getElementById('interactive-card');
+      if (card) {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          const rotX = (y / (rect.height / 2)) * -12;
+          const rotY = (x / (rect.width / 2)) * 12;
+          card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      }
+
+      // Initial greeting toast
+      setTimeout(() => {
+        showToast('👋 Welcome! Tap anywhere to trigger Neon Aura ripples.');
+      }, 1000);
+    };
+  </script>
+</body>
+</html>
